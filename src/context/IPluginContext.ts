@@ -12,6 +12,7 @@ import { IPluginFilesystemAPI } from './IPluginFilesystemAPI.js';
 import { IPluginLogger } from './IPluginLogger.js';
 import { IPluginConfig } from './IPluginConfig.js';
 import { IPluginWorker, EventHandler } from './IPluginWorker.js';
+import { IPluginBlockchainAPI } from './IPluginBlockchainAPI.js';
 
 /**
  * Plugin context interface
@@ -35,6 +36,9 @@ export interface IPluginContext {
 
     /** Database API (if permitted) */
     readonly db?: IPluginDatabaseAPI;
+
+    /** Blockchain query API (if permitted) */
+    readonly blockchain?: IPluginBlockchainAPI;
 
     /** Filesystem API */
     readonly fs: IPluginFilesystemAPI;
