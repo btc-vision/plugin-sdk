@@ -1,0 +1,60 @@
+{
+    "name": "@btc-vision/plugin-sdk",
+    "version": "1.0.0",
+    "type": "module",
+    "description": "SDK for developing OPNet node plugins",
+    "author": "OP_NET",
+    "license": "Apache-2.0",
+    "homepage": "https://opnet.org",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/btc-vision/plugin-sdk.git"
+    },
+    "engines": {
+        "node": ">=20.0.0"
+    },
+    "exports": {
+        ".": {
+            "import": "./build/index.js",
+            "require": "./build/index.js",
+            "types": "./build/index.d.ts"
+        }
+    },
+    "main": "build/index.js",
+    "types": "build/index.d.ts",
+    "typings": "build/index.d.ts",
+    "module": "build/index.js",
+    "publishConfig": {
+        "access": "public",
+        "tag": "latest"
+    },
+    "scripts": {
+        "build": "gulp build",
+        "watch": "gulp watch",
+        "clean": "gulp clean",
+        "lint": "eslint src/",
+        "format": "prettier --write src/"
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.39.1",
+        "@types/node": "^24.3.0",
+        "eslint": "^9.39.1",
+        "gulp": "^5.0.1",
+        "gulp-cached": "^1.1.1",
+        "gulp-clean": "^0.4.0",
+        "gulp-eslint-new": "^2.4.0",
+        "gulp-logger-new": "^1.0.1",
+        "gulp-typescript": "^6.0.0-alpha.1",
+        "prettier": "^3.6.2",
+        "typescript": "^5.9.2",
+        "typescript-eslint": "^8.39.1"
+    },
+    "keywords": [
+        "opnet",
+        "plugin",
+        "sdk",
+        "bitcoin",
+        "typescript",
+        "blockchain"
+    ]
+}
