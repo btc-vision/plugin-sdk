@@ -15,3 +15,14 @@ export { IReorgData } from './ReorgTypes.js';
 
 // Router types
 export { IPluginRouter, IPluginWebSocket } from './RouterTypes.js';
+
+// Contract types
+export {
+    IContractEvent,
+    ITransactionReceipt,
+    IContractInfo,
+    IContractStorageEntry,
+} from './ContractTypes.js';
+
+// UTXO types
+export { IUTXO, IUTXOQueryOptions } from './UTXOTypes.js';

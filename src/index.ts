@@ -28,6 +28,7 @@ export {
     IWebSocketPermissions,
     IThreadingPermissions,
     IFilesystemPermissions,
+    IBlockchainPermissions,
     DEFAULT_PERMISSIONS,
 } from './interfaces/IPluginPermissions.js';
 
@@ -112,6 +113,12 @@ export { IPluginFilesystemAPI } from './context/IPluginFilesystemAPI.js';
 export { IPluginLogger } from './context/IPluginLogger.js';
 export { IPluginConfig } from './context/IPluginConfig.js';
 export { IPluginWorker, EventHandler } from './context/IPluginWorker.js';
+export {
+    IPluginBlockchainAPI,
+    IBlockHeader,
+    IBlockWithTransactions,
+    ITransactionDocument,
+} from './context/IPluginBlockchainAPI.js';
 
 // ============================================================================
 // Types
@@ -134,6 +141,17 @@ export { IReorgData } from './types/ReorgTypes.js';
 
 // Router types
 export { IPluginRouter, IPluginWebSocket } from './types/RouterTypes.js';
+
+// Contract types
+export {
+    IContractEvent,
+    ITransactionReceipt,
+    IContractInfo,
+    IContractStorageEntry,
+} from './types/ContractTypes.js';
+
+// UTXO types
+export { IUTXO, IUTXOQueryOptions } from './types/UTXOTypes.js';
 
 // ============================================================================
 // Base Class
