@@ -1,8 +1,57 @@
 /**
- * @btc-vision/plugin-sdk
+ * # `@btc-vision/plugin-sdk`
  *
- * TypeScript SDK for developing OPNet node plugins.
- * Provides type definitions, interfaces, and base classes for plugin development.
+ * TypeScript SDK for developing OPNet node plugins. Provides type definitions,
+ * interfaces, base classes, and validation utilities for building plugins that
+ * extend OPNet node functionality.
+ *
+ * ## Quick Start
+ *
+ * ```typescript
+ * import {
+ *     PluginBase,
+ *     IPluginContext,
+ *     IBlockProcessedData,
+ *     IReorgData,
+ * } from '@btc-vision/plugin-sdk';
+ *
+ * export default class MyPlugin extends PluginBase {
+ *     async onLoad(context: IPluginContext): Promise<void> {
+ *         await super.onLoad(context);
+ *         this.context.logger.info('MyPlugin loaded!');
+ *     }
+ *
+ *     async onBlockPostProcess(block: IBlockProcessedData): Promise<void> {
+ *         this.context.logger.info(`Block #${block.blockNumber}: ${block.txCount} txs`);
+ *         await this.context.updateLastSyncedBlock(block.blockNumber);
+ *     }
+ *
+ *     async onReorg(reorg: IReorgData): Promise<void> {
+ *         const collection = this.context.db!.collection('my-plugin_data');
+ *         await collection.deleteMany({
+ *             blockHeight: { $gte: reorg.fromBlock.toString() },
+ *         });
+ *         await this.context.resetSyncStateToBlock(reorg.fromBlock - 1n);
+ *     }
+ * }
+ * ```
+ *
+ * ## Architecture
+ *
+ * Plugins run in isolated worker threads (bytenode-compiled V8 bytecode).
+ * The node communicates with plugins via JSON-serialized messages across
+ * the worker thread boundary. Hook payloads are serialized with
+ * `JSON.stringify()` and deserialized with `JSON.parse()`.
+ *
+ * ## Module Organization
+ *
+ * - **Core Interfaces** - {@link IPlugin}, {@link IPluginPermissions}, {@link IPluginMetadata}
+ * - **Context APIs** - {@link IPluginContext}, {@link IPluginDatabaseAPI}, {@link IPluginBlockchainAPI}
+ * - **Block/Transaction Types** - {@link IBlockData}, {@link IBlockProcessedData}, {@link ITransactionData}
+ * - **Hook System** - {@link HookType}, {@link HookPayload}, {@link HOOK_CONFIGS}
+ * - **Base Class** - {@link PluginBase} (recommended starting point)
+ * - **Validation** - {@link validateManifest}
+ * - **Constants** - {@link PLUGIN_FILE_EXTENSION}, {@link DEFAULT_PERMISSIONS}, etc.
  *
  * @packageDocumentation
  */
@@ -125,7 +174,16 @@ export {
 // ============================================================================
 
 // Block types
-export { IBlockData, IBlockProcessedData, ITransactionData, IChecksumProof } from './types/BlockTypes.js';
+export {
+    IBlockData,
+    IBlockProcessedData,
+    ITransactionData,
+    IChecksumProof,
+    IScriptSig,
+    IScriptPubKey,
+    IVIn,
+    IVOut,
+} from './types/BlockTypes.js';
 
 // Epoch types
 export { IEpochData } from './types/EpochTypes.js';
@@ -140,7 +198,7 @@ export { IMempoolTransaction } from './types/MempoolTypes.js';
 export { IReorgData } from './types/ReorgTypes.js';
 
 // Router types
-export { IPluginRouter, IPluginWebSocket } from './types/RouterTypes.js';
+export { IPluginRouter, IPluginWebSocket, IPluginHttpRequest } from './types/RouterTypes.js';
 
 // Contract types
 export {
@@ -178,5 +236,7 @@ export {
     CHECKSUM_SIZE,
     DEFAULT_HOOK_TIMEOUT_MS,
     MAX_PLUGIN_WORKERS,
+    MAX_WEBSOCKET_OPCODES,
+    MAX_BLOCK_RANGE,
     DEFAULT_WORKER_MEMORY_MB,
 } from './constants/index.js';

@@ -1,3 +1,14 @@
+/**
+ * Core plugin interface definitions for the OPNet Plugin SDK.
+ *
+ * Exports all fundamental interfaces governing plugin metadata, lifecycle,
+ * permissions, hooks, state management, binary file format, and
+ * synchronization. These define the contract between the OPNet node
+ * runtime and individual plugins.
+ *
+ * @packageDocumentation
+ */
+
 // Main plugin interface
 export { IPlugin, PluginConstructor, IPluginModule } from './IPlugin.js';
 
