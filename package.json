@@ -1,6 +1,6 @@
 {
     "name": "@btc-vision/plugin-sdk",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "type": "module",
     "description": "SDK for developing OPNet node plugins",
     "author": "OP_NET",
@@ -56,5 +56,8 @@
         "bitcoin",
         "typescript",
         "blockchain"
-    ]
+    ],
+    "dependencies": {
+        "@btc-vision/bitcoin": "^7.0.0-rc.4"
+    }
 }
